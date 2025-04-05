@@ -49,16 +49,10 @@ graph TD
   class Proxmox,Ubuntu1,HA green;
   class Docker,Portainer,Homarr,HAService blue;
   class Nginx,Tailscale orange;
-
-  click Ubuntu1 href "https://example.com/ubuntu-1-setup" "VM: ubuntu-1 Setup - Main Node"
-  click HA href "https://example.com/home-assistant-setup" "VM: home-assistant Setup - Automation"
-  click Docker href "https://example.com/docker-setup" "Docker Setup - Container Platform"
-  click Portainer href "https://example.com/portainer-setup" "Portainer Setup - Docker Management"
-  click Homarr href "https://example.com/homarr-setup" "Homarr Setup - Dashboard"
-  click HAService href "https://example.com/home-assistant-service" "Home Assistant Service"
-  click Nginx href "https://example.com/nginx-configuration" "Nginx Configuration - Reverse Proxy & SSL"
-  click Tailscale href "https://example.com/tailscale-setup" "Tailscale Configuration - VPN & MagicDNS"
 ```
+-   **Green**: Represents main infrastructure elements, such as Proxmox, ubuntu-1, and home-assistant.​
+-   **Blue**: Denotes services and applications within virtual machines, including Docker, Portainer, Homarr, and Home Assistant.​
+-   **Orange**: Highlights networking and security components like Nginx (reverse proxy & SSL) and Tailscale (VPN & MagicDNS).
 ## Services Exposure Diagram
 ```mermaid
 graph TD
@@ -67,21 +61,19 @@ graph TD
   Portainer["Portainer (Docker Management)"]
   Homarr["Homarr (Dashboard)"]
   HAService["Home Assistant (Service)"]
-  
+
   Tailscale -->|VPN Connection| Nginx
   Nginx --> Portainer
   Nginx --> Homarr
   Nginx --> HAService
 
+  classDef green fill:#a9dfbf,stroke:#27ae60;
+  classDef blue fill:#85c1e9,stroke:#2980b9;
   classDef orange fill:#f9e79f,stroke:#f39c12;
-  
-  class Nginx,Tailscale orange;
 
-  click Nginx href "https://example.com/nginx-configuration" "Nginx Configuration - Reverse Proxy & SSL"
-  click Tailscale href "https://example.com/tailscale-setup" "Tailscale Configuration - VPN & MagicDNS"
-  click Portainer href "https://example.com/portainer-setup" "Portainer Setup - Docker Management"
-  click Homarr href "https://example.com/homarr-setup" "Homarr Setup - Dashboard"
-  click HAService href "https://example.com/home-assistant-service" "Home Assistant Service"
+  class Nginx,Portainer,Homarr,HAService blue;
+  class Tailscale orange;
+  class Nginx orange;
 ```
 ## Virtual Machines (VMs)
 ### ubuntu-1
