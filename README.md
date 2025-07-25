@@ -87,8 +87,11 @@ graph TD
 ### ubuntu-1
 
 * **Internal IP**: 192.168.0.104
+
 * **Operative System** Ubuntu Server
+
 * **Purpose**: Main service node
+
 * **Services**:
 
   * **Docker**:
@@ -98,6 +101,19 @@ graph TD
   * **Nginx**: Reverse proxy, handling web traffic and securing communications via SSL/TLS.
   * **Tailscale**: VPN solution based on WireGuard, creating a private network accessible only from authorized devices via MagicDNS.
   * **acme.sh**: A shell script to manage Let's Encrypt SSL certificates. Installs and renews subdomain-specific certificates (e.g., `portainer.andresllinasr.com`, `ha.andresllinasr.com`) using DNS-01 challenge via Porkbun. Automatically reloads Nginx on renewal.
+
+  #### WebSocket Support for Home Assistant
+
+  When reverse proxying Home Assistant, Nginx **must** support WebSockets to avoid connection issues on login. Include the following lines inside the `location /` block:
+
+  ```nginx
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+  ```
+
+  This ensures proper WebSocket handshake, which Home Assistant requires for real-time features.
+
 * **Exposed via Nginx**:
 
   * `/portainer`: Access to Docker management via Portainer.
